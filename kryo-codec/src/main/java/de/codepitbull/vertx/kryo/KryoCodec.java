@@ -33,7 +33,7 @@ public class KryoCodec implements MessageCodec<KryoObject, KryoObject> {
 
     @Override
     public KryoObject decodeFromWire(int pos, Buffer buffer) {
-        try(Input input = new Input(new ByteArrayInputStream(buffer.getBuffer(pos, buffer.length()).getBytes()))) {
+        try(Input input = new Input(buffer.getBuffer(pos, buffer.length()).getBytes())) {
             input.close();
             return (KryoObject)kryo.readClassAndObject(input);
         }
