@@ -1,6 +1,6 @@
 package de.codepitbull.vertx.kryo;
 
-public class TestBean implements UseKryoCodec{
+public class TestBean implements KryoObject{
     private String val1;
     private Integer val2;
 
@@ -8,18 +8,16 @@ public class TestBean implements UseKryoCodec{
         return val1;
     }
 
-    public TestBean setVal1(String val1) {
+    public void setVal1(String val1) {
         this.val1 = val1;
-        return this;
     }
 
     public Integer getVal2() {
         return val2;
     }
 
-    public TestBean setVal2(Integer val2) {
+    public void setVal2(Integer val2) {
         this.val2 = val2;
-        return this;
     }
 
     @Override
@@ -47,5 +45,13 @@ public class TestBean implements UseKryoCodec{
         int result = val1 != null ? val1.hashCode() : 0;
         result = 31 * result + (val2 != null ? val2.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public KryoObject copy() {
+        TestBean testBean = new TestBean();
+        testBean.setVal1(val1);
+        testBean.setVal2(val2);
+        return testBean;
     }
 }
